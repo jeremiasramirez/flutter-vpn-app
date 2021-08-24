@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_softvpn/widgets/route.widget.dart';
 import 'package:flutter_softvpn/widgets/safe.widget.dart';
 
 class StartApp extends StatefulWidget {
@@ -34,6 +35,8 @@ class StartAppState extends State<StartApp> {
         setState(() {
           this.valueSpinner = 1;
         });
+
+        replaceRoute(context, "home");
       }
     });
   }
