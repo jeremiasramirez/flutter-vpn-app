@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_softvpn/pages/home.page.dart';
+import 'package:flutter_softvpn/pages/start.page.dart';
+// import 'package:google_fonts';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Home | FireVpn',
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: HomePage(),
+      routes: {"start": (context) => StartApp()},
+      initialRoute: "start",
     );
   }
 }
