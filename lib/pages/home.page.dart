@@ -19,7 +19,8 @@ class HomePage extends StatelessWidget {
                 child: Column(children: [
               this.containIp(),
               this.timingVpn(),
-              this.activateVpn()
+              this.activateVpn(),
+              this.selectedCountry()
             ]))));
   }
 
@@ -81,13 +82,24 @@ class HomePage extends StatelessWidget {
         ])));
   }
 
+  Widget selectedCountry() {
+    return Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
+        child: ListTile(
+            leading: Container(
+                child: Image(
+                    image: AssetImage("assets/images/countries/belgium.png"))),
+            title: Text("United states")));
+  }
+
   Widget activateVpn() {
     return Container(
         width: 160,
         height: 160,
         decoration: BoxDecoration(
-            color: Colors.orange[400],
-            borderRadius: BorderRadius.circular(125)),
+            color: Colors.grey[300], borderRadius: BorderRadius.circular(125)),
         child: Center(
           child: ClipRRect(
               borderRadius: BorderRadius.circular(110),
@@ -101,7 +113,7 @@ class HomePage extends StatelessWidget {
                       child: Icon(Icons.power_settings_new,
                           size: 80, color: Colors.white),
                       decoration: BoxDecoration(
-                          color: Colors.orange[900],
+                          color: Colors.orange[800],
                           borderRadius: BorderRadius.circular(125)),
                     )),
               )),
