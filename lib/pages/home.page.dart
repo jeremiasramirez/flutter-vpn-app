@@ -77,14 +77,14 @@ class HomePage extends StatelessWidget {
           SeparatedWidget(0, 10),
           Text("00:06",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500)),
-          SeparatedWidget(0, 30),
+          SeparatedWidget(0, 25),
         ])));
   }
 
   Widget activateVpn() {
     return Container(
-        width: 170,
-        height: 170,
+        width: 160,
+        height: 160,
         decoration: BoxDecoration(
             color: Colors.orange[400],
             borderRadius: BorderRadius.circular(125)),
@@ -96,8 +96,8 @@ class HomePage extends StatelessWidget {
                 child: TextButton(
                     onPressed: () {},
                     child: Container(
-                      width: 160,
-                      height: 160,
+                      width: 140,
+                      height: 140,
                       child: Icon(Icons.power_settings_new,
                           size: 80, color: Colors.white),
                       decoration: BoxDecoration(
