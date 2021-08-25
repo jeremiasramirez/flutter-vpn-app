@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_softvpn/widgets/separated.widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,32 +17,9 @@ class HomePage extends StatelessWidget {
             ),
             body: Center(
                 child: Column(children: [
-              FadeInUp(
-                from: 20,
-                child: Container(
-                    margin: EdgeInsets.all(15),
-                    padding: EdgeInsets.only(top: 18, bottom: 18),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            this.textOpacity("Status"),
-                            this.textOrange("Connected"),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            this.textOpacity("Your IP"),
-                            this.textOrange("194.124.155.188"),
-                          ],
-                        )
-                      ],
-                    )),
-              )
+              this.containIp(),
+              this.timingVpn(),
+              this.activateVpn()
             ]))));
   }
 
@@ -59,5 +37,74 @@ class HomePage extends StatelessWidget {
             color: Colors.grey[600],
             fontSize: 17,
             fontWeight: FontWeight.w500));
+  }
+
+  FadeInUp containIp() {
+    return FadeInUp(
+      from: 15,
+      child: Container(
+          margin: EdgeInsets.all(15),
+          padding: EdgeInsets.only(top: 18, bottom: 18),
+          decoration: BoxDecoration(
+              color: Colors.grey[200], borderRadius: BorderRadius.circular(12)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  this.textOpacity("Status"),
+                  this.textOrange("Connected"),
+                ],
+              ),
+              Column(
+                children: [
+                  this.textOpacity("Your IP"),
+                  this.textOrange("194.124.155.188"),
+                ],
+              )
+            ],
+          )),
+    );
+  }
+
+  Widget timingVpn() {
+    return FadeInUp(
+        from: 30,
+        child: Container(
+            child: Column(children: [
+          SeparatedWidget(0, 16),
+          this.textOpacity("Connetion time"),
+          SeparatedWidget(0, 10),
+          Text("00:06",
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500)),
+          SeparatedWidget(0, 30),
+        ])));
+  }
+
+  Widget activateVpn() {
+    return Container(
+        width: 170,
+        height: 170,
+        decoration: BoxDecoration(
+            color: Colors.orange[400],
+            borderRadius: BorderRadius.circular(125)),
+        child: Center(
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(110),
+              child: ZoomIn(
+                duration: Duration(seconds: 1),
+                child: TextButton(
+                    onPressed: () {},
+                    child: Container(
+                      width: 160,
+                      height: 160,
+                      child: Icon(Icons.power_settings_new,
+                          size: 80, color: Colors.white),
+                      decoration: BoxDecoration(
+                          color: Colors.orange[900],
+                          borderRadius: BorderRadius.circular(125)),
+                    )),
+              )),
+        ));
   }
 }
