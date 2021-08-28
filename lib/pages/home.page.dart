@@ -21,16 +21,18 @@ class HomePage extends StatelessWidget {
               centerTitle: true,
               backgroundColor: Colors.transparent,
             ),
-            body: Center(
-                child: Column(children: [
-              this.containIp(),
-              this.timingVpn(),
-              SeparatedWidget(0, 10),
-              this.activateVpn(),
-              this.selectedCountry(context, "server"),
-              SeparatedWidget(0, 18),
-              this.statistic()
-            ]))));
+            body: ListView(physics: ScrollPhysics(), children: [
+              Center(
+                  child: Column(children: [
+                this.containIp(),
+                this.timingVpn(),
+                SeparatedWidget(0, 10),
+                this.activateVpn(),
+                this.selectedCountry(context, "server"),
+                SeparatedWidget(0, 18),
+                this.statistic()
+              ]))
+            ])));
   }
 
   Text textOrange(String name) {
@@ -97,21 +99,22 @@ class HomePage extends StatelessWidget {
   }
 
   Widget selectedCountry(BuildContext context, String name) {
-    return Container(
-        margin: EdgeInsets.only(top: 43, left: 20, right: 20),
-        decoration: BoxDecoration(
-            // color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(20)),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInUp(
-                from: 105,
-                delay: Duration(milliseconds: 500),
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: FadeInUp(
+            from: 80,
+            delay: Duration(milliseconds: 300),
+            child: Container(
+                margin: EdgeInsets.only(top: 43, left: 20, right: 20),
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(20)),
                 child: ListTile(
+                    // selectedTileColor: Colors.white,
                     onTap: () {
                       navigate(context, name);
                     },
-                    tileColor: Colors.grey[200],
+                    // tileColor: Colors.white,
                     trailing: Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.grey[800],
@@ -119,7 +122,7 @@ class HomePage extends StatelessWidget {
                     leading: Container(
                         child: Image(
                             image: AssetImage(
-                                "assets/images/countries/belgium.png"))),
+                                "assets/images/countries/united-states.png"))),
                     title: Text(
                       "United states",
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -129,7 +132,7 @@ class HomePage extends StatelessWidget {
   Widget statistic() {
     return FadeInUp(
       from: 105,
-      delay: Duration(seconds: 1),
+      delay: Duration(milliseconds: 500),
       child: Container(
           margin: EdgeInsets.all(15),
           padding: EdgeInsets.only(top: 10, bottom: 18),
@@ -172,7 +175,7 @@ class HomePage extends StatelessWidget {
 
   Widget activateVpn() {
     return ZoomIn(
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 500),
         child: Container(
             width: 165,
             height: 165,
