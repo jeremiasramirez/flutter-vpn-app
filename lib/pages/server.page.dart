@@ -14,23 +14,113 @@ class ServerPage extends StatelessWidget {
             appBar: this.appBars(context),
             body: ListView(children: [
               this.searchLocation(),
-              SeparatedWidget(0, 10),
-              BounceInLeft(child: this.textOver("Recomendation")),
-              BounceInLeft(
+              SeparatedWidget(0, 5),
+              this.textOver("Recomendation"),
+              FadeInUp(
+                  from: 13,
+                  duration: Duration(milliseconds: 300),
                   child: this
                       .tile("Belgium", "assets/images/countries/belgium.png")),
-              BounceInLeft(
+              FadeInUp(
+                  from: 13,
+                  duration: Duration(milliseconds: 300),
                   child: this.tile("United Kingdom",
                       "assets/images/countries/united-kingdom.png")),
+              SeparatedWidget(0, 10),
+              this.textOver("From server"),
+              FadeInUp(
+                  from: 13,
+                  duration: Duration(milliseconds: 300),
+                  child: this.tile(
+                      "Netherland", "assets/images/countries/netherlands.png")),
+              FadeInUp(
+                  from: 13,
+                  duration: Duration(milliseconds: 300),
+                  child:
+                      this.tile("Japan", "assets/images/countries/japan.png")),
+              FadeInUp(
+                  from: 13,
+                  duration: Duration(milliseconds: 300),
+                  child: this.tile("United States",
+                      "assets/images/countries/united-states.png")),
+              this.premiumButton(context)
             ])));
+  }
+
+  void spinner(contextok) {
+    showDialog(
+        context: contextok,
+        builder: (e) {
+          return AlertDialog(
+              elevation: 0,
+              backgroundColor: Colors.grey[100],
+              title: FadeInUp(
+                from: 2,
+                child: Center(
+                    child: Text("Getting Premium",
+                        style: TextStyle(
+                            color: Colors.pink[500], fontFamily: "ubuntu"))),
+              ),
+              content: ZoomIn(
+                  child: Container(
+                      width: 30,
+                      height: 228,
+                      child:
+                          CircularProgressIndicator(color: Colors.pink[500]))),
+              actions: <Widget>[
+                FlatButton(
+                    color: Colors.pink[400],
+                    onPressed: () {
+                      Navigator.pop(contextok);
+                    },
+                    minWidth: 300,
+                    child: Text("Cancel",
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: "ubuntu"))),
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(contextok);
+                      this.spinner(contextok);
+                    },
+                    minWidth: 300,
+                    child: Text("Retry"))
+              ]);
+        });
+  }
+
+  Widget premiumButton(context) {
+    return GestureDetector(
+        child: Container(
+            width: 280.0,
+            margin: EdgeInsets.only(left: 22, right: 22, top: 10),
+            height: 50.0,
+            child: TextButton(
+                onPressed: () {
+                  this.spinner(context);
+                },
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.star_border, color: Colors.white, size: 30),
+                      SeparatedWidget(8, 0),
+                      Text("Get premium",
+                          style: TextStyle(
+                              fontFamily: "ubuntu",
+                              fontSize: 19,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white))
+                    ])),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.red[400])));
   }
 
   Widget textOver(String name) {
     return Container(
-        margin: EdgeInsets.only(left: 14),
+        margin: EdgeInsets.only(left: 22),
         child: Text(name,
             style: GoogleFonts.ubuntu(
-                color: Colors.grey[400],
+                color: Colors.grey[500],
                 fontSize: 18,
                 fontWeight: FontWeight.w500)));
   }
@@ -39,7 +129,7 @@ class ServerPage extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.only(top: 12, left: 10, right: 10),
+        margin: EdgeInsets.only(top: 12, left: 22, right: 22),
         child: ListTile(
             title: Text(name,
                 style: GoogleFonts.ubuntu(
@@ -48,7 +138,7 @@ class ServerPage extends StatelessWidget {
                     fontWeight: FontWeight.w500)),
             onTap: () {},
             leading: Container(
-                width: 40,
+                width: 35,
                 height: 40,
                 child: ClipRRect(
                     child:
@@ -67,10 +157,11 @@ class ServerPage extends StatelessWidget {
                     fontSize: 18,
                     color: Colors.grey[700],
                     fontWeight: FontWeight.w600),
-                prefixIcon: Icon(Icons.search, color: Colors.grey[500]),
+                prefixIcon:
+                    Icon(Icons.search, size: 28, color: Colors.pink[400]),
                 border: OutlineInputBorder(
                     gapPadding: 10, borderRadius: BorderRadius.circular(40)),
-                fillColor: Colors.white,
+                fillColor: Colors.grey[300],
                 focusColor: Colors.grey,
                 hintText: 'Search location')));
   }

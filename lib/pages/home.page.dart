@@ -4,7 +4,13 @@ import 'package:flutter_softvpn/widgets/route.widget.dart';
 import 'package:flutter_softvpn/widgets/separated.widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  HomePageState createState() => new HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  int timing = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +36,7 @@ class HomePage extends StatelessWidget {
                 this.activateVpn(),
                 this.selectedCountry(context, "server"),
                 SeparatedWidget(0, 18),
-                this.statistic()
+                this.statistic(context)
               ]))
             ])));
   }
@@ -40,7 +46,7 @@ class HomePage extends StatelessWidget {
         style: GoogleFonts.ubuntu(
             color: Colors.orange[800],
             fontSize: 20,
-            fontWeight: FontWeight.w600));
+            fontWeight: FontWeight.w700));
   }
 
   Text textOpacity(String name) {
@@ -51,12 +57,12 @@ class HomePage extends StatelessWidget {
             fontWeight: FontWeight.w500));
   }
 
-  FadeInUp containIp() {
+  Widget containIp() {
     return FadeInUp(
-      from: 15,
+      from: 10,
       child: Container(
           margin: EdgeInsets.all(15),
-          padding: EdgeInsets.only(top: 10, bottom: 18),
+          padding: EdgeInsets.only(top: 15, bottom: 18),
           decoration: BoxDecoration(
               color: Colors.grey[200], borderRadius: BorderRadius.circular(12)),
           child: Row(
@@ -80,8 +86,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget timingVpn() {
-    return FadeInUp(
-        from: 30,
+    return Flash(
+        // from: 30,
         child: Container(
             decoration: BoxDecoration(
                 // color: Colors.grey[200],
@@ -102,7 +108,7 @@ class HomePage extends StatelessWidget {
     return ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: FadeInUp(
-            from: 80,
+            from: 10,
             delay: Duration(milliseconds: 300),
             child: Container(
                 margin: EdgeInsets.only(top: 43, left: 20, right: 20),
@@ -110,7 +116,7 @@ class HomePage extends StatelessWidget {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(20)),
                 child: ListTile(
-                    // selectedTileColor: Colors.white,
+                    selectedTileColor: Colors.white,
                     onTap: () {
                       navigate(context, name);
                     },
@@ -129,48 +135,79 @@ class HomePage extends StatelessWidget {
                     )))));
   }
 
-  Widget statistic() {
+  void alert(contextok) {
+    showDialog(
+        context: contextok,
+        builder: (e) {
+          return AlertDialog(
+              title: FadeInUp(
+                  from: 5,
+                  child: Text("Fire Network",
+                      style: TextStyle(fontFamily: "ubuntu"))),
+              content: FadeInUp(
+                  from: 5,
+                  child: Text("124 Mb/s",
+                      style: TextStyle(
+                          fontFamily: "ubuntu", fontWeight: FontWeight.bold))),
+              actions: <Widget>[
+                FlatButton(
+                    color: Colors.grey[200],
+                    child: Text("OK",
+                        style: TextStyle(
+                            fontFamily: "ubuntu", fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ]);
+        });
+  }
+
+  Widget statistic(context) {
     return FadeInUp(
-      from: 105,
-      delay: Duration(milliseconds: 500),
-      child: Container(
+        from: 105,
+        delay: Duration(milliseconds: 500),
+        child: Container(
           margin: EdgeInsets.all(15),
           padding: EdgeInsets.only(top: 10, bottom: 18),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
+          child: GestureDetector(
+              onTap: () {
+                this.alert(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(
+                  Column(
                     children: [
-                      Icon(Icons.arrow_upward, color: Colors.red),
-                      SeparatedWidget(8, 0),
-                      Column(children: [
-                        this.textOpacity("Upload"),
-                        this.textOrange("124 Mb/s")
-                      ])
+                      Row(
+                        children: [
+                          Icon(Icons.arrow_upward, color: Colors.red),
+                          SeparatedWidget(8, 0),
+                          Column(children: [
+                            this.textOpacity("Upload"),
+                            this.textOrange("124 Mb/s")
+                          ])
+                        ],
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.arrow_downward, color: Colors.pink[800]),
+                          SeparatedWidget(8, 0),
+                          Column(children: [
+                            this.textOpacity("Download"),
+                            this.textOrange("154 Mb/s")
+                          ])
+                        ],
+                      )
                     ],
                   )
                 ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.arrow_downward, color: Colors.pink[800]),
-                      SeparatedWidget(8, 0),
-                      Column(children: [
-                        this.textOpacity("Download"),
-                        this.textOrange("154 Mb/s")
-                      ])
-                    ],
-                  )
-                ],
-              )
-            ],
-          )),
-    );
+              )),
+        ));
   }
 
   Widget activateVpn() {
